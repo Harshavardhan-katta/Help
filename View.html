@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome to HELP!</title>
   <link rel="stylesheet" href="Help.css">
 
@@ -20,7 +22,7 @@
                 <a href="index.html" class="menu-link">Home</a>
                 <a href="Found.html" class="menu-link">Report Found</a>
                 <a href="lost.html" class="menu-link">Report Lost</a>
-                <a href="View.html" class="menu-link active">View Found</a>
+                <a href="View.html" class="menu-link active">View Items</a>
                 <a href="contact.html" class="menu-link">Contact</a>
                 <button class="Agentlogin" onclick="window.location.href='AgentLogin.html'">Agent Login</button>
             </nav>
@@ -46,11 +48,18 @@ document.querySelectorAll('.menu-link').forEach(link => {
   });
 });
 </script>
+ <div class ="Notes">
+    <h2>Notes:</h2>
+    <ul>
+        <li>Only verified found items will be displayed in the "Found Items" section.</li>
+        <li>Use the search bar to filter items by name, description, or location.</li>
+    </ul>
+</div>
 <div class="form-container">
-  <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Search for items..">
+  <input type="text" id="searchInput" aria-label="Search items" onkeyup="searchItems()" placeholder="git push -u origin mainSearch for items..">
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto;">
+<div class="two-column-grid">
   <!-- Found Items Column -->
   <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
     <h2 style="color: #27ae60; border-bottom: 3px solid #27ae60; padding-bottom: 10px;">Found Items - Verified</h2>
@@ -67,40 +76,46 @@ document.querySelectorAll('.menu-link').forEach(link => {
 <div id="datetime" style="float: right; padding: 10px;"></div>
 <script>
 function displayItems(foundItems, lostItems) {
-  const foundList = document.getElementById('foundItemsList');
-  const lostList = document.getElementById('lostItemsList');
-  
-  // Display found items
-  if (foundItems.length === 0) {
-    foundList.innerHTML = "<p style='color: #999; text-align: center;'>No verified found items yet.</p>";
-  } else {
-    foundList.innerHTML = foundItems.map(item => `
-    <div class="found-card" style="border-left: 4px solid #27ae60; margin-bottom: 15px;">
-      <strong>Item:</strong> ${item.name}<br>
-      <strong>Description:</strong> ${item.description}<br>
-      <strong>Location:</strong> ${item.location}<br>
-      <strong>HelpDesk:</strong> ${item.helpdesk}<br>
-      <strong>Contact:</strong> <a href="mailto:${item.email}">${item.email}</a><br>
-      <strong>Date:</strong> ${item.createdAt}
-    </div>
-    `).join('');
+    const foundList = document.getElementById('foundItemsList');
+    const lostList = document.getElementById('lostItemsList');
+
+    // Display found items
+    if (foundItems.length === 0) {
+      foundList.innerHTML = "<p style='color: #999; text-align: center;'>No verified found items yet.</p>";
+    } else {
+      foundList.innerHTML = foundItems.map(item => `
+      <div class="found-card" style="border-left: 4px solid #27ae60; margin-bottom: 15px; display:flex; gap:12px; align-items:flex-start;">
+        ${item.image ? `<img src="${item.image}" alt="${item.name || 'Item'}" style="width:110px; height:80px; object-fit:cover; border-radius:6px;"/>` : ''}
+        <div style="flex:1;">
+          <strong>Item:</strong> ${item.name || 'N/A'}<br>
+          <strong>Description:</strong> ${item.description || 'N/A'}<br>
+          <strong>Location:</strong> ${item.location || 'N/A'}<br>
+          <strong>HelpDesk:</strong> ${item.helpdesk || 'N/A'}<br>
+          <strong>Contact:</strong> <a href="mailto:${item.email || ''}">${item.email || 'N/A'}</a><br>
+          <strong>Date:</strong> ${item.createdAt || item.datetime || 'N/A'}
+        </div>
+      </div>
+      `).join('');
+    }
+
+    // Display lost items
+    if (lostItems.length === 0) {
+      lostList.innerHTML = "<p style='color: #999; text-align: center;'>No lost items reported yet.</p>";
+    } else {
+      lostList.innerHTML = lostItems.map(item => `
+      <div class="found-card" style="border-left: 4px solid #e74c3c; margin-bottom: 15px; display:flex; gap:12px; align-items:flex-start;">
+        ${item.image ? `<img src="${item.image}" alt="${item.name || 'Item'}" style="width:110px; height:80px; object-fit:cover; border-radius:6px;"/>` : ''}
+        <div style="flex:1;">
+          <strong>Item:</strong> ${item.name || 'N/A'}<br>
+          <strong>Description:</strong> ${item.description || 'N/A'}<br>
+          <strong>Last Seen:</strong> ${item.location || 'N/A'}<br>
+          <strong>Contact:</strong> <a href="mailto:${item.email || ''}">${item.email || 'N/A'}</a><br>
+          <strong>Date:</strong> ${item.createdAt || item.datetime || 'N/A'}
+        </div>
+      </div>
+      `).join('');
+    }
   }
-  
-  // Display lost items
-  if (lostItems.length === 0) {
-    lostList.innerHTML = "<p style='color: #999; text-align: center;'>No lost items reported yet.</p>";
-  } else {
-    lostList.innerHTML = lostItems.map(item => `
-    <div class="found-card" style="border-left: 4px solid #e74c3c; margin-bottom: 15px;">
-      <strong>Item:</strong> ${item.name}<br>
-      <strong>Description:</strong> ${item.description}<br>
-      <strong>Last Seen:</strong> ${item.location}<br>
-      <strong>Contact:</strong> <a href="mailto:${item.email}">${item.email}</a><br>
-      <strong>Date:</strong> ${item.createdAt}
-    </div>
-    `).join('');
-  }
-}
 
 function searchItems() {
   let input = document.getElementById('searchInput');
