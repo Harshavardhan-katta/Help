@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .heading-sub {
+            color: #555;
+            font-size: 1em;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .heading-main {
+            color: #333;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            background-color: #1a4223;
+            color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: left;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item {
+            padding: 20px 0;
+        }
+
+        .item-title {
+            color: #b0c9b4;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin: 0 0 5px 0;
+        }
+
+        .item-value {
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #3d6a4a;
+            margin: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: #0aef30;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #72ebf4;
+        }
+
+        .contact-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-form .success-message {
+            display: none; /* Hidden by default */
+            text-align: center;
+            color: #4a9e4d;
+            font-size: 1.5em;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #e6f6e8;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .success-message i {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Roboto', sans-serif;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #1a4223;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #aaa;
+        }
+
+        .contact-form button {
+            background-color: #4a9e4d;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: auto;
+            align-self: flex-start;
+        }
+
+        .contact-form button:hover {
+            background-color: #3e8141;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .contact-form {
+                width: 100%;
+                min-width: unset;
+            }
+            .contact-info {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="heading-sub">We're Here to Help You</p>
+        <h1 class="heading-main">Reach Out to the HELP! Team</h1>
+
+        <div class="content-wrapper">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <p class="item-title">Phone</p>
+                    <p class="item-value">07680802918</p>
+                </div>
+                <hr>
+                <div class="contact-item">
+                    <p class="item-title">Email</p>
+                    <p class="item-value">helpofficial@zohomail.in</p>
+                </div>
+                <hr>
+                <div class="contact-item">
+                    <p class="item-title">Address</p>
+                    <p class="item-value">Bhimavaram Town Railway Rd, Balusumoodi, Bhimavaram, Andhra Pradesh 534202, India</p>
+                </div>
+                <hr>
+                <div class="contact-item">
+                    <p class="item-title">Social Media</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/help__official8"><i class="fab fa-instagram"></i></a>
+                        <a href=" https://www.linkedin.com/in/helpplatform"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Message Sent Successfully!,We will reach you shortly</p>
+                </div>
+                
+                <form id="contactForm">
+                    <input type="text" id="name" name="name" placeholder="Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    <textarea id="message" name="message" placeholder="Message"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const subject = form.subject.value;
+            const message = form.message.value;
+
+            if (name && email && subject) {
+                // Hide the form
+                form.style.display = 'none';
+
+                // Show the success message
+                document.querySelector('.success-message').style.display = 'block';
+
+                console.log("Form Submitted!");
+                console.log("Name:", name);
+                console.log("Email:", email);
+                console.log("Subject:", subject);
+                console.log("Message:", message);
+
+            } else {
+                alert('Please fill out all the required fields.');
+            }
+        });
+    </script>
+   
+</body>
+
+
+</html>

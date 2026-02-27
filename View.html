@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to HELP!</title>
+  <link rel="stylesheet" href="Help.css">
+
+</head>
+<body>
+  
+ <header>
+    <div class="header-flex">
+        <img src="Helplogo2.png" alt="Help! Logo" class="logo" onclick="window.location.href='index.html'">
+        <div class="header-title-nav">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-menu" id="mainMenu">
+                <a href="index.html" class="menu-link">Home</a>
+                <a href="Found.html" class="menu-link">Report Found</a>
+                <a href="lost.html" class="menu-link">Report Lost</a>
+                <a href="View.html" class="menu-link active">View Found</a>
+                <a href="contact.html" class="menu-link">Contact</a>
+                <button class="Agentlogin" onclick="window.location.href='AgentLogin.html'">Agent Login</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
+  <script src="script.js"></script>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('mainMenu');
+  const toggle = document.querySelector('.menu-toggle');
+  menu.classList.toggle('active');
+  toggle.classList.toggle('active');
+}
+
+// Close menu when a link is clicked
+document.querySelectorAll('.menu-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mainMenu').classList.remove('active');
+    document.querySelector('.menu-toggle').classList.remove('active');
+  });
+});
+</script>
+<div class="form-container">
+  <input type="text" id="searchInput" onkeyup="searchItems()" placeholder="Search for items..">
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto;">
+  <!-- Found Items Column -->
+  <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #27ae60; border-bottom: 3px solid #27ae60; padding-bottom: 10px;">Found Items - Verified</h2>
+    <div id="foundItemsList"></div>
+  </div>
+
+  <!-- Lost Items Column -->
+  <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="color: #e74c3c; border-bottom: 3px solid #e74c3c; padding-bottom: 10px;">Lost Items</h2>
+    <div id="lostItemsList"></div>
+  </div>
+</div>
+
+<div id="datetime" style="float: right; padding: 10px;"></div>
+<script>
+function displayItems(foundItems, lostItems) {
+  const foundList = document.getElementById('foundItemsList');
+  const lostList = document.getElementById('lostItemsList');
+  
+  // Display found items
+  if (foundItems.length === 0) {
+    foundList.innerHTML = "<p style='color: #999; text-align: center;'>No verified found items yet.</p>";
+  } else {
+    foundList.innerHTML = foundItems.map(item => `
+    <div class="found-card" style="border-left: 4px solid #27ae60; margin-bottom: 15px;">
+      <strong>Item:</strong> ${item.name}<br>
+      <strong>Description:</strong> ${item.description}<br>
+      <strong>Location:</strong> ${item.location}<br>
+      <strong>HelpDesk:</strong> ${item.helpdesk}<br>
+      <strong>Contact:</strong> <a href="mailto:${item.email}">${item.email}</a><br>
+      <strong>Date:</strong> ${item.createdAt}
+    </div>
+    `).join('');
+  }
+  
+  // Display lost items
+  if (lostItems.length === 0) {
+    lostList.innerHTML = "<p style='color: #999; text-align: center;'>No lost items reported yet.</p>";
+  } else {
+    lostList.innerHTML = lostItems.map(item => `
+    <div class="found-card" style="border-left: 4px solid #e74c3c; margin-bottom: 15px;">
+      <strong>Item:</strong> ${item.name}<br>
+      <strong>Description:</strong> ${item.description}<br>
+      <strong>Last Seen:</strong> ${item.location}<br>
+      <strong>Contact:</strong> <a href="mailto:${item.email}">${item.email}</a><br>
+      <strong>Date:</strong> ${item.createdAt}
+    </div>
+    `).join('');
+  }
+}
+
+function searchItems() {
+  let input = document.getElementById('searchInput');
+  let filter = input.value.toUpperCase();
+  
+  const allFoundItems = JSON.parse(localStorage.getItem('foundItems') || '[]');
+  const approvedFoundItems = allFoundItems.filter(item => item.approved === true);
+  const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+  
+  let filteredFoundItems = approvedFoundItems.filter(item => {
+    return item.name.toUpperCase().includes(filter) ||
+           item.description.toUpperCase().includes(filter) ||
+           item.location.toUpperCase().includes(filter);
+  });
+  
+  let filteredLostItems = lostItems.filter(item => {
+    return item.name.toUpperCase().includes(filter) ||
+           item.description.toUpperCase().includes(filter) ||
+           item.location.toUpperCase().includes(filter);
+  });
+  
+  displayItems(filteredFoundItems, filteredLostItems);
+}
+
+function showDateTime() {
+  var d = new Date();
+  document.getElementById("datetime").innerHTML = d.toLocaleString();
+}
+
+const allFoundItems = JSON.parse(localStorage.getItem('foundItems') || '[]');
+const approvedFoundItems = allFoundItems.filter(item => item.approved === true);
+const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+
+displayItems(approvedFoundItems, lostItems);
+setInterval(showDateTime, 1000);
+</script>
+<footer>
+  <p>&copy; 2025  HELP! All rights reserved.</p>
+  <p>Contact us <a href="contact.html">here</a></p>
+</footer>
+</body>
+</html>

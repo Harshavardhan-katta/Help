@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to HELP!</title>
+  <link rel="stylesheet" href="Help.css">
+
+</head>
+<body>
+  
+ <header>
+    <div class="header-flex">
+        <img src="Helplogo2.png" alt="Help! Logo" class="logo" onclick="window.location.href='index.html'">
+        <div class="header-title-nav">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-menu" id="mainMenu">
+                <a href="index.html" class="menu-link active">Home</a>
+                <a href="Found.html" class="menu-link">Report Found</a>
+                <a href="lost.html" class="menu-link">Report Lost</a>
+                <a href="View.html" class="menu-link">View Found</a>
+                <a href="contact.html" class="menu-link">Contact</a>
+                <button class="Agentlogin" onclick="window.location.href='AgentLogin.html'">Agent Login</button>
+            </nav>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="intro-section">
+        <h2>Welcome to HELP!</h2>
+        <p>
+            A Platform Where You Can Get Back Your Lost Belonging
+        </p>
+    </section>
+</main>
+
+  <div class="button-row">
+  <button class="report-lost" onclick="window.location.href='lost.html'">Report A Lost</button>
+  <button class="report-found" onclick="window.location.href='Found.html'">Report A Found</button>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('mainMenu');
+  const toggle = document.querySelector('.menu-toggle');
+  menu.classList.toggle('active');
+  toggle.classList.toggle('active');
+}
+
+// Close menu when a link is clicked
+document.querySelectorAll('.menu-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mainMenu').classList.remove('active');
+    document.querySelector('.menu-toggle').classList.remove('active');
+  });
+});
+</script>
+<div class="form-container">
+  <h2>All Found Items</h2>
+  <div id="foundItemsList"></div>
+</div>
+<script>
+function displayFoundItems() {
+  const foundItems = JSON.parse(localStorage.getItem('foundItems') || '[]');
+  const listDiv = document.getElementById('foundItemsList');
+  if (foundItems.length === 0) {
+    listDiv.innerHTML = "<p>No items found yet.</p>";
+    return;
+  }
+  listDiv.innerHTML = foundItems.map(item => `
+  <div class="found-card">
+    <strong>Item:</strong> ${item.name}<br>
+    <strong>Description:</strong> ${item.description}<br>
+    <strong>Found Location:</strong> ${item.location}<br>
+    <strong>HelpDesk:</strong> ${item.helpdesk}<br>
+    <strong>Contact Email:</strong> <a href="mailto:${item.email}">${item.email}</a><br>
+    <strong>Date/Time:</strong> ${item.createdAt}
+  </div>
+`).join('');
+}
+displayFoundItems();
+</script>
+<footer>
+  <p>&copy; 2025  HELP! All rights reserved.</p>
+  <p>Contact us <a href="contact.html">here</a></p>
+</footer>
+</body>
+</html>

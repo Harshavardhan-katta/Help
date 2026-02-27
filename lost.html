@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>report-lost</title>
+  <link rel="stylesheet" href="Help.css">
+
+</head>
+<body>
+  
+ <header>
+    <div class="header-flex">
+        <img src="Helplogo2.png" onclick="window.location.href='index.html'" class="logo" >
+        <div class="header-title-nav">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-menu" id="mainMenu">
+                <a href="index.html" class="menu-link">Home</a>
+                <a href="Found.html" class="menu-link">Report Found</a>
+                <a href="lost.html" class="menu-link active">Report Lost</a>
+                <a href="View.html" class="menu-link">View Found</a>
+                <a href="contact.html" class="menu-link">Contact</a>
+                <button class="Agentlogin" onclick="window.location.href='AgentLogin.html'">Agent Login</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="form-container">
+    <h2>Report Lost Item</h2>
+   <form id="lostForm">
+  <input name="name" placeholder="Item Name" required><br> 
+  <input name="description" placeholder="Description" required><br>
+  <input name="location" placeholder="Last Seen Location" required><br>
+  <input name="email" type="email" placeholder="Your Email" required><br>
+  
+  <label for="lostImage" style="display:block; margin:10px 0 4px 0; color:#1a7fd1; font-weight:500; cursor:pointer;">
+    <span style="font-size:1.2em; vertical-align:middle;"></span>
+    <span style="vertical-align:middle;">Add a photo of your item (optional)</span>
+  </label>
+  <input id="lostImage" name="image" type="file" accept="image/*" capture>
+  
+  <button type="submit">Submit</button>
+</form>
+    
+    <div id="thankYouMsg" style="display:none; margin-top:20px; color:green; font-weight:bold;">
+      Thank you! We will try our best to help you find your belonging.
+      <button onclick="window.location.href='index.html'" style="padding:8px 18px; border-radius:6px; background:#428cc9; color:#fff; border:none; cursor:pointer;">
+        Return Home
+    </div>
+</div>
+<footer>
+  <p>&copy; 2025  HELP! All rights reserved.</p>
+  <p>Contact us <a href="contact.html">here</a></p>
+</footer>
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('mainMenu');
+  const toggle = document.querySelector('.menu-toggle');
+  menu.classList.toggle('active');
+  toggle.classList.toggle('active');
+}
+
+// Close menu when a link is clicked
+document.querySelectorAll('.menu-link').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mainMenu').classList.remove('active');
+    document.querySelector('.menu-toggle').classList.remove('active');
+  });
+});
+
+  document.getElementById('lostForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
+    const now = new Date();
+    const newItem = {
+      id: Date.now(),
+      name: this.name.value,
+      description: this.description.value,
+      location: this.location.value,
+      email: this.email.value,
+      createdAt: now.toLocaleString()
+      // helpdesk: this.helpdesk.value 
+    };
+    lostItems.push(newItem);
+    localStorage.setItem('lostItems', JSON.stringify(lostItems));
+    document.getElementById('thankYouMsg').style.display = 'block';
+    this.style.display = 'none';
+  });
+</script>
