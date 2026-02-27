@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>report-lost</title>
   <link rel="stylesheet" href="Help.css">
-  <link rel="icon" href="Helplogo2.png" type="image/png">
-    
 
 </head>
 <body>
   
  <header>
     <div class="header-flex">
-        <img src="Helplogo2.png" onclick="window.location.href='index.html'" class="logo" >
+        <img src="Helplogo2.png" alt="HELP! logo" onclick="window.location.href='index.html'" class="logo" >
         <div class="header-title-nav">
             <button class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
@@ -22,37 +22,34 @@
                 <a href="index.html" class="menu-link">Home</a>
                 <a href="Found.html" class="menu-link">Report Found</a>
                 <a href="lost.html" class="menu-link active">Report Lost</a>
-                <a href="View.html" class="menu-link">View Found</a>
+                <a href="View.html" class="menu-link">View Items</a>
                 <a href="contact.html" class="menu-link">Contact</a>
                 <button class="Agentlogin" onclick="window.location.href='AgentLogin.html'">Agent Login</button>
             </nav>
         </div>
     </div>
-
-
 </header>
 
 <div class="form-container">
     <h2>Report Lost Item</h2>
    <form id="lostForm">
-  <input name="name" placeholder="Item Name" required><br> 
-  <input name="description" placeholder="Description" required><br>
-  <input name="location" placeholder="Last Seen Location" required><br>
-  <input name="email" type="email" placeholder="Your Email" required><br>
-  
+  <label class="sr-only">Item Name<input name="name" placeholder="Item Name" required></label><br>
+  <label class="sr-only">Description<input name="description" placeholder="Description" required></label><br>
+  <label class="sr-only">Last Seen Location<input name="location" placeholder="Last Seen Location" required></label><br>
+  <label class="sr-only">Your Email<input name="email" type="email" placeholder="Your Email" required></label><br>
+
   <label for="lostImage" style="display:block; margin:10px 0 4px 0; color:#1a7fd1; font-weight:500; cursor:pointer;">
     <span style="font-size:1.2em; vertical-align:middle;"></span>
     <span style="vertical-align:middle;">Add a photo of your item (optional)</span>
   </label>
-  <input id="lostImage" name="image" type="file" accept="image/*" capture>
-  
+  <input id="lostImage" name="image" type="file" accept="image/*">
+
   <button type="submit">Submit</button>
 </form>
     
     <div id="thankYouMsg" style="display:none; margin-top:20px; color:green; font-weight:bold;">
       Thank you! We will try our best to help you find your belonging.
-      <button onclick="window.location.href='index.html'" style="padding:8px 18px; border-radius:6px; background:#428cc9; color:#fff; border:none; cursor:pointer;">
-        Return Home
+      <button onclick="window.location.href='index.html'" style="padding:8px 18px; border-radius:6px; background:#428cc9; color:#fff; border:none; cursor:pointer;">Return Home</button>
     </div>
 </div>
 <footer>
@@ -74,23 +71,7 @@ document.querySelectorAll('.menu-link').forEach(link => {
     document.querySelector('.menu-toggle').classList.remove('active');
   });
 });
-
-  document.getElementById('lostForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const lostItems = JSON.parse(localStorage.getItem('lostItems') || '[]');
-    const now = new Date();
-    const newItem = {
-      id: Date.now(),
-      name: this.name.value,
-      description: this.description.value,
-      location: this.location.value,
-      email: this.email.value,
-      createdAt: now.toLocaleString()
-      // helpdesk: this.helpdesk.value 
-    };
-    lostItems.push(newItem);
-    localStorage.setItem('lostItems', JSON.stringify(lostItems));
-    document.getElementById('thankYouMsg').style.display = 'block';
-    this.style.display = 'none';
-  });
 </script>
+<script src="script.js"></script>
+</body>
+</html>
